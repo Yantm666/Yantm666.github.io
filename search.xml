@@ -42,6 +42,19 @@
     
     
     <entry>
+      <title>第五篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第三篇文章</title>
       <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
       <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
@@ -74,19 +87,6 @@
     
     
     <entry>
-      <title>第六篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>第四篇文章</title>
       <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%9B%9B%E7%AF%87%E6%96%87%E7%AB%A0/"/>
       <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%9B%9B%E7%AF%87%E6%96%87%E7%AB%A0/</url>
@@ -100,9 +100,9 @@
     
     
     <entry>
-      <title>第五篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第六篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -117,7 +117,7 @@
       <link href="/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/"/>
       <url>/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/</url>
       
-        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://telegraph-image-d12.pages.dev/file/d4d2f53c212bae13c5d62.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://telegraph-image-d12.pages.dev/file/e6e03737bf1a0f793fff1.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://telegraph-image-d12.pages.dev/file/002bc2ae2dcf773b3af8b.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/c627317099d1d154c6c56.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://telegraph-image-d12.pages.dev/file/c92ed35ebe81d14e0edb1.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://telegraph-image-d12.pages.dev/file/b927d957d0dd82a2ad087.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/3c08973b7ec82eaa97df0.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2f4f3390d66e374b1bd1a.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2b00705a102b4998cef09.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://telegraph-image-d12.pages.dev/file/146b3479701dd7c266e35.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://telegraph-image-d12.pages.dev/file/ad46aa3e42ed40de272bf.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://telegraph-image-d12.pages.dev/file/3dbd5279490dff1d30fc0.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://telegraph-image-d12.pages.dev/file/3f07d09f4cc3b34f9da79.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930210753.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930211651.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930211809.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930212028.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930212251.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930212429.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930212729.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930213219.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://github.com/Yantm666/photo/blob/master/img/%25F[S%25(P%7D93BN_]966)41K[K.png?raw=true" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930213815.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930214405.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930214658.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930214931.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930215443.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssit漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930220014.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930220407.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930220840.png" alt="1"><br>好也过了<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930220944.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930221621.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930221952.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那又得是传数组,利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930222543.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930222650.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://raw.githubusercontent.com/Yantm666/photo/master/img/20230930224239.png" alt="1"><br><img src="https://cdn.statically.io/gh/Yantm666/photo@master/img/20230930235015.png" alt="1"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://telegraph-image-d12.pages.dev/file/d4d2f53c212bae13c5d62.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://telegraph-image-d12.pages.dev/file/e6e03737bf1a0f793fff1.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://telegraph-image-d12.pages.dev/file/002bc2ae2dcf773b3af8b.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/c627317099d1d154c6c56.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://telegraph-image-d12.pages.dev/file/c92ed35ebe81d14e0edb1.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://telegraph-image-d12.pages.dev/file/b927d957d0dd82a2ad087.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/3c08973b7ec82eaa97df0.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2f4f3390d66e374b1bd1a.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2b00705a102b4998cef09.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://telegraph-image-d12.pages.dev/file/146b3479701dd7c266e35.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://telegraph-image-d12.pages.dev/file/ad46aa3e42ed40de272bf.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://telegraph-image-d12.pages.dev/file/3dbd5279490dff1d30fc0.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://telegraph-image-d12.pages.dev/file/3f07d09f4cc3b34f9da79.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930210753.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930211651.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930211809.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212028.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212251.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212429.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212729.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930213219.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/%25F[S%25(P%7D93BN_]966)41K[K.png?raw=true" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930213815.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214405.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214658.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214931.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930215443.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssit漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220014.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220407.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220840.png" alt="1"><br>好也过了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220944.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930221621.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930221952.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那又得是传数组,利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930222543.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930222650.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930224239.png" alt="1"></p>]]></content>
       
       
       <categories>
@@ -138,28 +138,6 @@
     
   
   
-    
-    
-    <entry>
-      <title></title>
-      <link href="/css/custom.css"/>
-      <url>/css/custom.css</url>
-      
-        <content type="html"><![CDATA[:root {  --trans-light: rgba(255, 255, 255, 0.88);  --trans-dark: rgba(25, 25, 25, 0.88);  --border-style: 1px solid rgb(169, 169, 169);  --backdrop-filter: blur(5px) saturate(150%);}/* 页脚与头图透明 */#footer {    background: transparent !important;  }  #page-header {    background: transparent !important;  }    /* 白天模式遮罩透明 */  #footer::before {    background: transparent !important;  }  #page-header::before {    background: transparent !important;  }    /* 夜间模式遮罩透明 */  [data-theme="dark"] #footer::before {    background: transparent !important;  }  [data-theme="dark"] #page-header::before {    background: transparent !important;  }  /* 小冰分类分类磁铁黑夜模式适配 */  /* 一般状态 */  [data-theme="dark"] .magnet_link_context {      background: #1e1e1e;      color: antiquewhite;  }  /* 鼠标悬浮状态 */  [data-theme="dark"] .magnet_link_context:hover {      background: #3ecdf1;      color: #f2f2f2;  }  /* 翻页按钮居中 */  #pagination {    width: 100%;    margin: auto;   }     /* 日间模式不生效 */     [data-theme="light"] #site-name,     [data-theme="light"] #site-title,     [data-theme="light"] #site-subtitle,     [data-theme="light"] #post-info {       animation: none;     }       /* 夜间模式生效 */     [data-theme="dark"] #site-name,     [data-theme="dark"] #site-title {       animation: light_15px 10s linear infinite;     }       [data-theme="dark"] #site-subtitle {       animation: light_10px 10s linear infinite;     }       [data-theme="dark"] #post-info {       animation: light_5px 10s linear infinite;     }       /* 关键帧描述 */     @keyframes light_15px {       0% {         text-shadow: #5636ed 0 0 15px;       }         12.5% {         text-shadow: #11ee5e 0 0 15px;       }         25% {         text-shadow: #f14747 0 0 15px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 15px;       }         50% {         text-shadow: #b347f1 0 0 15px;       }         62.5% {         text-shadow: #002afa 0 0 15px;       }         75% {         text-shadow: #ed709b 0 0 15px;       }         87.5% {         text-shadow: #39c5bb 0 0 15px;       }         100% {         text-shadow: #5636ed 0 0 15px;       }     }       @keyframes light_10px {       0% {         text-shadow: #5636ed 0 0 10px;       }         12.5% {         text-shadow: #11ee5e 0 0 10px;       }         25% {         text-shadow: #f14747 0 0 10px;       }         37.5% {         text-shadow: #f1a247 0 0 10px;       }         50% {         text-shadow: #f1ee47 0 0 10px;       }         50% {         text-shadow: #b347f1 0 0 10px;       }         62.5% {         text-shadow: #002afa 0 0 10px;       }         75% {         text-shadow: #ed709b 0 0 10px;       }         87.5% {         text-shadow: #39c5bb 0 0 10px;       }         100% {         text-shadow: #5636ed 0 0 10px;       }     }       @keyframes light_5px {       0% {         text-shadow: #5636ed 0 0 5px;       }         12.5% {         text-shadow: #11ee5e 0 0 5px;       }         25% {         text-shadow: #f14747 0 0 5px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 5px;       }         50% {         text-shadow: #b347f1 0 0 5px;       }         62.5% {         text-shadow: #002afa 0 0 5px;       }         75% {         text-shadow: #ed709b 0 0 5px;       }         87.5% {         text-shadow: #39c5bb 0 0 5px;       }         100% {         text-shadow: #5636ed 0 0 5px;       }     }         /* 侧边栏个人信息卡片动态渐变色 */         #aside-content>.card-widget.card-info {           background: linear-gradient(-45deg,               #e8d8b9,               #eccec5,               #a3e9eb,               #bdbdf0,               #eec1ea);           box-shadow: 0 0 5px rgb(66, 68, 68);           position: relative;           background-size: 400% 400%;           -webkit-animation: Gradient 10s ease infinite;           -moz-animation: Gradient 10s ease infinite;           animation: Gradient 10s ease infinite !important;         }             @-webkit-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @-moz-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             /* 黑夜模式适配 */         [data-theme="dark"] #aside-content>.card-widget.card-info {           background: #191919ee;         }             /* 个人信息Follow me按钮 */         #aside-content>.card-widget.card-info>#card-info-btn {           background-color: #3eb8be;           border-radius: 8px;         }/* 首页文章卡片 */#recent-posts>.recent-post-item {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 25px;  border: var(--border-style);}/* 首页侧栏卡片 */#aside-content .card-widget {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 18px;  border: var(--border-style);}/* 文章页、归档页、普通页面 */div#post,div#page,div#archive {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border: var(--border-style);  border-radius: 20px;}/* 导航栏 */#page-header.nav-fixed #nav {  background: rgba(255, 255, 255, 0.75);  backdrop-filter: var(--backdrop-filter);}[data-theme="dark"] #page-header.nav-fixed #nav {  background: rgba(0, 0, 0, 0.7) !important;}/* 夜间模式遮罩 */[data-theme="dark"] #recent-posts>.recent-post-item,[data-theme="dark"] #aside-content .card-widget,[data-theme="dark"] div#post,[data-theme="dark"] div#archive,[data-theme="dark"] div#page {  background: var(--trans-dark);}/* 夜间模式页脚页头遮罩透明 */[data-theme="dark"] #footer::before {  background: transparent !important;}[data-theme="dark"] #page-header::before {  background: transparent !important;}/* 阅读模式 */.read-mode #aside-content .card-widget {  background: rgba(158, 204, 171, 0.5) !important;}.read-mode div#post {  background: rgba(158, 204, 171, 0.5) !important;}/* 夜间模式下的阅读模式 */[data-theme="dark"] .read-mode #aside-content .card-widget {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}[data-theme="dark"] .read-mode div#post {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>友链</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
     
     
     <entry>
@@ -185,11 +163,11 @@
     
     
     <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
+      <title></title>
+      <link href="/css/custom.css"/>
+      <url>/css/custom.css</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[:root {  --trans-light: rgba(255, 255, 255, 0.88);  --trans-dark: rgba(25, 25, 25, 0.88);  --border-style: 1px solid rgb(169, 169, 169);  --backdrop-filter: blur(5px) saturate(150%);}/* 页脚与头图透明 */#footer {    background: transparent !important;  }  #page-header {    background: transparent !important;  }    /* 白天模式遮罩透明 */  #footer::before {    background: transparent !important;  }  #page-header::before {    background: transparent !important;  }    /* 夜间模式遮罩透明 */  [data-theme="dark"] #footer::before {    background: transparent !important;  }  [data-theme="dark"] #page-header::before {    background: transparent !important;  }  /* 小冰分类分类磁铁黑夜模式适配 */  /* 一般状态 */  [data-theme="dark"] .magnet_link_context {      background: #1e1e1e;      color: antiquewhite;  }  /* 鼠标悬浮状态 */  [data-theme="dark"] .magnet_link_context:hover {      background: #3ecdf1;      color: #f2f2f2;  }  /* 翻页按钮居中 */  #pagination {    width: 100%;    margin: auto;   }     /* 日间模式不生效 */     [data-theme="light"] #site-name,     [data-theme="light"] #site-title,     [data-theme="light"] #site-subtitle,     [data-theme="light"] #post-info {       animation: none;     }       /* 夜间模式生效 */     [data-theme="dark"] #site-name,     [data-theme="dark"] #site-title {       animation: light_15px 10s linear infinite;     }       [data-theme="dark"] #site-subtitle {       animation: light_10px 10s linear infinite;     }       [data-theme="dark"] #post-info {       animation: light_5px 10s linear infinite;     }       /* 关键帧描述 */     @keyframes light_15px {       0% {         text-shadow: #5636ed 0 0 15px;       }         12.5% {         text-shadow: #11ee5e 0 0 15px;       }         25% {         text-shadow: #f14747 0 0 15px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 15px;       }         50% {         text-shadow: #b347f1 0 0 15px;       }         62.5% {         text-shadow: #002afa 0 0 15px;       }         75% {         text-shadow: #ed709b 0 0 15px;       }         87.5% {         text-shadow: #39c5bb 0 0 15px;       }         100% {         text-shadow: #5636ed 0 0 15px;       }     }       @keyframes light_10px {       0% {         text-shadow: #5636ed 0 0 10px;       }         12.5% {         text-shadow: #11ee5e 0 0 10px;       }         25% {         text-shadow: #f14747 0 0 10px;       }         37.5% {         text-shadow: #f1a247 0 0 10px;       }         50% {         text-shadow: #f1ee47 0 0 10px;       }         50% {         text-shadow: #b347f1 0 0 10px;       }         62.5% {         text-shadow: #002afa 0 0 10px;       }         75% {         text-shadow: #ed709b 0 0 10px;       }         87.5% {         text-shadow: #39c5bb 0 0 10px;       }         100% {         text-shadow: #5636ed 0 0 10px;       }     }       @keyframes light_5px {       0% {         text-shadow: #5636ed 0 0 5px;       }         12.5% {         text-shadow: #11ee5e 0 0 5px;       }         25% {         text-shadow: #f14747 0 0 5px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 5px;       }         50% {         text-shadow: #b347f1 0 0 5px;       }         62.5% {         text-shadow: #002afa 0 0 5px;       }         75% {         text-shadow: #ed709b 0 0 5px;       }         87.5% {         text-shadow: #39c5bb 0 0 5px;       }         100% {         text-shadow: #5636ed 0 0 5px;       }     }         /* 侧边栏个人信息卡片动态渐变色 */         #aside-content>.card-widget.card-info {           background: linear-gradient(-45deg,               #e8d8b9,               #eccec5,               #a3e9eb,               #bdbdf0,               #eec1ea);           box-shadow: 0 0 5px rgb(66, 68, 68);           position: relative;           background-size: 400% 400%;           -webkit-animation: Gradient 10s ease infinite;           -moz-animation: Gradient 10s ease infinite;           animation: Gradient 10s ease infinite !important;         }             @-webkit-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @-moz-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             /* 黑夜模式适配 */         [data-theme="dark"] #aside-content>.card-widget.card-info {           background: #191919ee;         }             /* 个人信息Follow me按钮 */         #aside-content>.card-widget.card-info>#card-info-btn {           background-color: #3eb8be;           border-radius: 8px;         }/* 首页文章卡片 */#recent-posts>.recent-post-item {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 25px;  border: var(--border-style);}/* 首页侧栏卡片 */#aside-content .card-widget {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 18px;  border: var(--border-style);}/* 文章页、归档页、普通页面 */div#post,div#page,div#archive {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border: var(--border-style);  border-radius: 20px;}/* 导航栏 */#page-header.nav-fixed #nav {  background: rgba(255, 255, 255, 0.75);  backdrop-filter: var(--backdrop-filter);}[data-theme="dark"] #page-header.nav-fixed #nav {  background: rgba(0, 0, 0, 0.7) !important;}/* 夜间模式遮罩 */[data-theme="dark"] #recent-posts>.recent-post-item,[data-theme="dark"] #aside-content .card-widget,[data-theme="dark"] div#post,[data-theme="dark"] div#archive,[data-theme="dark"] div#page {  background: var(--trans-dark);}/* 夜间模式页脚页头遮罩透明 */[data-theme="dark"] #footer::before {  background: transparent !important;}[data-theme="dark"] #page-header::before {  background: transparent !important;}/* 阅读模式 */.read-mode #aside-content .card-widget {  background: rgba(158, 204, 171, 0.5) !important;}.read-mode div#post {  background: rgba(158, 204, 171, 0.5) !important;}/* 夜间模式下的阅读模式 */[data-theme="dark"] .read-mode #aside-content .card-widget {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}[data-theme="dark"] .read-mode div#post {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}]]></content>
       
     </entry>
     
@@ -207,17 +185,6 @@
     
     
     <entry>
-      <title></title>
-      <link href="/js/runtime.js"/>
-      <url>/js/runtime.js</url>
-      
-        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>音乐</title>
       <link href="/music/index.html"/>
       <url>/music/index.html</url>
@@ -229,9 +196,42 @@
     
     
     <entry>
+      <title>友链</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/js/runtime.js"/>
+      <url>/js/runtime.js</url>
+      
+        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>标题</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
