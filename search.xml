@@ -29,19 +29,6 @@
     
     
     <entry>
-      <title>第三篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
-      
-        <content type="html"><![CDATA[<h2 id="第三篇文章"><a href="#第三篇文章" class="headerlink" title="第三篇文章"></a>第三篇文章</h2>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>第二篇文章</title>
       <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/"/>
       <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/</url>
@@ -61,9 +48,22 @@
     
     
     <entry>
-      <title>第六篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第三篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第三篇文章"><a href="#第三篇文章" class="headerlink" title="第三篇文章"></a>第三篇文章</h2>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第五篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -100,9 +100,9 @@
     
     
     <entry>
-      <title>第五篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%94%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第六篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -117,7 +117,7 @@
       <link href="/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/"/>
       <url>/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/</url>
       
-        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://telegraph-image-d12.pages.dev/file/d4d2f53c212bae13c5d62.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://telegraph-image-d12.pages.dev/file/e6e03737bf1a0f793fff1.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://telegraph-image-d12.pages.dev/file/002bc2ae2dcf773b3af8b.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/c627317099d1d154c6c56.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://telegraph-image-d12.pages.dev/file/c92ed35ebe81d14e0edb1.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://telegraph-image-d12.pages.dev/file/b927d957d0dd82a2ad087.png" alt="1"><br><img src="https://telegraph-image-d12.pages.dev/file/3c08973b7ec82eaa97df0.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2f4f3390d66e374b1bd1a.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://telegraph-image-d12.pages.dev/file/2b00705a102b4998cef09.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://telegraph-image-d12.pages.dev/file/146b3479701dd7c266e35.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://telegraph-image-d12.pages.dev/file/ad46aa3e42ed40de272bf.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://telegraph-image-d12.pages.dev/file/3dbd5279490dff1d30fc0.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://telegraph-image-d12.pages.dev/file/3f07d09f4cc3b34f9da79.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930210753.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930211651.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930211809.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212028.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212251.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212429.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930212729.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930213219.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/%25F[S%25(P%7D93BN_]966)41K[K.png?raw=true" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930213815.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214405.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214658.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930214931.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930215443.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssit漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220014.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220407.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220840.png" alt="1"><br>好也过了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930220944.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930221621.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930221952.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那又得是传数组,利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930222543.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930222650.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://fastly.jsdelivr.net/gh/Yantm666/photo@master/img/20230930224239.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/4XylA7CHgZ3jfBb.png" alt="1"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://s2.loli.net/2023/10/01/oXic4WZ8fhR1Q7N.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://s2.loli.net/2023/10/01/yuxcONY3pQviMIZ.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://s2.loli.net/2023/10/01/q3aXopFiYd1vLyn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/BysdUGORo8APwI9.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://s2.loli.net/2023/10/01/ZNRz39BTIXCEoik.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://s2.loli.net/2023/10/01/ol5xHiSb1XVwstn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/Pz6LXqfugHVcWmS.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://s2.loli.net/2023/10/01/OpfelavXB5r1Yzn.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://s2.loli.net/2023/10/01/7ilReQJprIZy5f6.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://s2.loli.net/2023/10/01/ueyiL9S78NkUXoR.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://s2.loli.net/2023/10/01/UCYgaBGstxfE2Ah.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://s2.loli.net/2023/10/01/ITj5oaCKFJg3crf.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://s2.loli.net/2023/10/01/Babp5ygEOMi6UPq.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://s2.loli.net/2023/10/01/XO6Yu5DkE8cRGj1.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://s2.loli.net/2023/10/01/3Xfe6si98MaEhov.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://s2.loli.net/2023/10/01/gxBGPLs3EuvOAUy.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://s2.loli.net/2023/10/01/vl8CdaHPknuz5gt.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://s2.loli.net/2023/10/01/p9RZ3f8aeEJqH15.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://s2.loli.net/2023/10/01/xuUStgeFZ3NQwO7.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://s2.loli.net/2023/10/01/gPBUu2vTrxQ8RoG.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://s2.loli.net/2023/10/01/ZvuChPbkrydGEs5.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://s2.loli.net/2023/10/01/BskA2rYRNiSVq3j.png" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://s2.loli.net/2023/10/01/lKCOuchso8JQIbY.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://s2.loli.net/2023/10/01/eFNwvEpmSZ2WcTf.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://s2.loli.net/2023/10/01/rdVfzQHpY5Ui8gE.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://s2.loli.net/2023/10/01/bPcDzuXOjKh1Yn2.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://s2.loli.net/2023/10/01/QTWLrlh1FBG6JxK.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssit漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://s2.loli.net/2023/10/01/worm4qKu5RAx7JD.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://s2.loli.net/2023/10/01/dAv3YqSWOTVsnZ8.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://s2.loli.net/2023/10/01/VindBhLTReYN2P9.png" alt="1"><br>好也过了<br><img src="https://s2.loli.net/2023/10/01/MhKFgRYa8Eu5jxQ.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://s2.loli.net/2023/10/01/OPqmvW4wUrHanlT.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://s2.loli.net/2023/10/01/5DFvHbstpLX1d3V.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那又得是传数组,利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://s2.loli.net/2023/10/01/C6L85GZiDcfOEAR.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="hhttps://s2.loli.net/2023/10/01/zaP3JMmIbsOgQXk.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://s2.loli.net/2023/10/01/9hG3SpflDjHks4E.png" alt="1"></p>]]></content>
       
       
       <categories>
@@ -138,17 +138,6 @@
     
   
   
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
     
     
     <entry>
@@ -174,28 +163,6 @@
     
     
     <entry>
-      <title></title>
-      <link href="/js/lib_runtime.js"/>
-      <url>/js/lib_runtime.js</url>
-      
-        <content type="html"><![CDATA[setInterval(() => {  let create_time = Math.round(new Date('2023-8-19 13:34:00').getTime() / 1000); //在此行修改建站时间  let timestamp = Math.round((new Date().getTime()) / 1000);  let second = timestamp - create_time;  let time = new Array(0, 0, 0, 0, 0);  var nol = function(h){    return h>9?h:'0'+h;  }  if (second >= 365 * 24 * 3600) {    time[0] = parseInt(second / (365 * 24 * 3600));    second %= 365 * 24 * 3600;  }  if (second >= 24 * 3600) {    time[1] = parseInt(second / (24 * 3600));    second %= 24 * 3600;  }  if (second >= 3600) {    time[2] = nol(parseInt(second / 3600));    second %= 3600;  }  if (second >= 60) {    time[3] = nol(parseInt(second / 60));    second %= 60;  }  if (second > 0) {    time[4] = nol(second);  }  if ((Number(time[2])<22) && (Number(time[2])>7)){    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-营业中-6adea8?style=social&logo=cakephp' title='距离第十八层还有不少距离哦'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  else{    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-打烊了-6adea8?style=social&logo=coffeescript' title='这里的人也是要休息的QWQ'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  document.getElementById("workboard").innerHTML = currentTimeHtml;}, 1000);]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>友链</title>
       <link href="/link/index.html"/>
       <url>/link/index.html</url>
@@ -207,9 +174,31 @@
     
     
     <entry>
-      <title>音乐</title>
-      <link href="/music/index.html"/>
-      <url>/music/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>标题</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -229,9 +218,20 @@
     
     
     <entry>
-      <title>标题</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title></title>
+      <link href="/js/lib_runtime.js"/>
+      <url>/js/lib_runtime.js</url>
+      
+        <content type="html"><![CDATA[setInterval(() => {  let create_time = Math.round(new Date('2023-8-19 13:34:00').getTime() / 1000); //在此行修改建站时间  let timestamp = Math.round((new Date().getTime()) / 1000);  let second = timestamp - create_time;  let time = new Array(0, 0, 0, 0, 0);  var nol = function(h){    return h>9?h:'0'+h;  }  if (second >= 365 * 24 * 3600) {    time[0] = parseInt(second / (365 * 24 * 3600));    second %= 365 * 24 * 3600;  }  if (second >= 24 * 3600) {    time[1] = parseInt(second / (24 * 3600));    second %= 24 * 3600;  }  if (second >= 3600) {    time[2] = nol(parseInt(second / 3600));    second %= 3600;  }  if (second >= 60) {    time[3] = nol(parseInt(second / 60));    second %= 60;  }  if (second > 0) {    time[4] = nol(second);  }  if ((Number(time[2])<22) && (Number(time[2])>7)){    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-营业中-6adea8?style=social&logo=cakephp' title='距离第十八层还有不少距离哦'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  else{    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-打烊了-6adea8?style=social&logo=coffeescript' title='这里的人也是要休息的QWQ'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  document.getElementById("workboard").innerHTML = currentTimeHtml;}, 1000);]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>音乐</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
