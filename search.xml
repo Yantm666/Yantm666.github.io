@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>周记1</title>
+      <link href="/2023/10/05/2023-8-18-%E5%91%A8%E8%AE%B0/"/>
+      <url>/2023/10/05/2023-8-18-%E5%91%A8%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="周记1"><a href="#周记1" class="headerlink" title="周记1"></a>周记1</h1><h2 id="MD5碰撞"><a href="#MD5碰撞" class="headerlink" title="MD5碰撞"></a>MD5碰撞</h2><p>例如:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$password=md5($_POST[&#x27;password&#x27;]);</span><br><span class="line">substr($password,0,6)===&quot;c4d038&quot;;</span><br></pre></td></tr></table></figure><p>对于这样的问题,传入的password值为多少才能使代码成立呢<br>这种就可以考虑写一个简单的Python脚本来实现md5弱碰撞(因为md5不可反向解码,实际是需要一个个试出来答案的),可以先从数字试起</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line">def crack(pre):</span><br><span class="line">    for i in range(0, 999999):</span><br><span class="line">       if (hashlib.md5(str(i).encode(&quot;UTF-8&quot;)).hexdigest())[0:6] == str(pre):</span><br><span class="line">           print(i)</span><br><span class="line">           break</span><br><span class="line"></span><br><span class="line">crack(&quot;c4d038&quot;)</span><br></pre></td></tr></table></figure><p>运行后发现得出结果为114514</p><h2 id="php的一些初级绕过"><a href="#php的一些初级绕过" class="headerlink" title="php的一些初级绕过"></a>php的一些初级绕过</h2><h3 id="md5弱类型绕过"><a href="#md5弱类型绕过" class="headerlink" title="md5弱类型绕过"></a>md5弱类型绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a != $b &amp;&amp; md5($a) == md5($b)</span><br></pre></td></tr></table></figure><p>例如对于这样的a和b,我们可以选择传入数组绕过,但如果不允许传数组,可以选择找出两个数再md5加密后都为0e开头的即可(这样会被识别为科学记数法进而都得0)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">QNKCDZO</span><br><span class="line">0e830400451993494058024219903391</span><br><span class="line">s878926199a</span><br><span class="line">0e545993274517709034328855841020</span><br><span class="line">s155964671a</span><br><span class="line">0e342768416822451524974117254469</span><br><span class="line">s214587387a</span><br><span class="line">0e848240448830537924465865611904</span><br><span class="line">s214587387a</span><br><span class="line">0e848240448830537924465865611904</span><br><span class="line">s878926199a</span><br><span class="line">0e545993274517709034328855841020</span><br><span class="line">s1091221200a</span><br><span class="line">0e940624217856561557816327384675</span><br></pre></td></tr></table></figure><p>所以构造a&#x3D;QNKCDZO&amp;b&#x3D;s878926199a即可绕过</p><h3 id="is-numeric-和intval-绕过"><a href="#is-numeric-和intval-绕过" class="headerlink" title="is_numeric()和intval()绕过"></a>is_numeric()和intval()绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!is_numeric($_GET[&#x27;key5&#x27;]) &amp;&amp; $_GET[&#x27;key5&#x27;] &gt; 2023</span><br></pre></td></tr></table></figure><p>例如这样的key5,我们可以选择传数组利用php中数组类型比整形大的特点绕过</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!is_numeric($c) &amp;&amp; $c != 1024 &amp;&amp; intval($c) == 1024</span><br></pre></td></tr></table></figure><p>但对于这样的题里面的c就不能传数组,因为要求intval($c)等于一个整数,那么我们可以选择构造c&#x3D;1024a这样的payload</p><p>也可以选择传入一个0x开头的字符串,因为php中intval()函数中如果字符串包括了 “0x” (或 “0X”) 的前缀,使用 16 进制 (hex)</p><h3 id="正则绕过"><a href="#正则绕过" class="headerlink" title="正则绕过"></a>正则绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!preg_match(&quot;/flag|system|pass|cat|ls/i&quot;,$code)</span><br></pre></td></tr></table></figure><p>对于这样简单的黑名单过滤,可以选择参数逃逸绕过,构造这样的payload:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code=var_dump(file_get_contents($_POST[&#x27;a&#x27;]));&amp;a=/flag</span><br></pre></td></tr></table></figure><p>其中的var_dump()是为了让网页回显</p><p>此外还可以使用变量拼接的方法</p><h3 id="strcmp-绕过"><a href="#strcmp-绕过" class="headerlink" title="strcmp()绕过"></a>strcmp()绕过</h3><p>此函数无法比较数组可以考虑传数组绕过</p><h2 id="Liunx常用命令"><a href="#Liunx常用命令" class="headerlink" title="Liunx常用命令"></a>Liunx常用命令</h2><h3 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h3><p><strong>1</strong>.<br>ls命令是列出目录内容的意思（List Directtory Contents）。运行它就是列出文件夹的内容，可能是文件也可能是文件夹。</p><p>  ls -l命令以详情模式(long listing fashion)列出文件夹的内容。</p><p>  ls -a命令会列出文件夹里的所有内容，包括以”.”开头的隐藏文件。</p><p>  注意：在Linux中，文件以“.”开头就是隐藏文件，并且每个文件，文件夹，设备或者命令都是以文件对待。<br><strong>2</strong>.<br>pwd 显示工作路径<br><strong>3</strong>.<br>cd &#x2F;home 进入 ‘&#x2F; home’ 目录’<br>cd … 返回上一级目录<br>cd …&#x2F;… 返回上两级目录<br>cd 进入个人的主目录<br>cd ~user1 进入个人的主目录<br>cd - 返回上次所在的目录</p><h3 id="文件显示命令"><a href="#文件显示命令" class="headerlink" title="文件显示命令"></a>文件显示命令</h3><p><strong>1</strong>.<br>less：显示文件内容带分页；<br><strong>2</strong>.<br>  grep：在文件中查询内容，grep –n “查找内容” 文件名；</p><p>  | [管道命令]：在linux和unix系统中 | 就是管道命令，把上一个命令的结果交给 | 的后面的命令进行处理。</p><p>  例：grep –n “查找内容” 文件名 | more<br><strong>3</strong>.<br>  cat：把文件串连接后输出到屏幕或加 &gt; fileName 到另一个档案。<br><strong>4</strong>.<br>  head：格式：head [-n|c num]fileName，说明：显示文件头部内容。没有参数时，显示最前10行。<br><strong>5</strong>.<br>  tail：格式：tail [-n|c num]fileName，说明：显示文件尾部内容。没有参数时，显示最后10行。<br><strong>6</strong>.<br>  cut：格式：cut -cnum1-num2 filename，说明：显示每行从开头算起第 num1 到 num2 的字符。</p><h2 id="Liunx基础"><a href="#Liunx基础" class="headerlink" title="Liunx基础"></a>Liunx基础</h2><h3 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h3><p>&#x2F;bin</p><p>放置的是在单人维护模式下还能够被操作的指令，在&#x2F;bin目录的指令可以被root与一般账号所使用<br>&#x2F;boot</p><p>这个目录主要放置开机会用到的文件，包括linux核心文件以及开机选单与开机所需配置文件等。<br>&#x2F;dev</p><p>在Linux系统上，任何装置与设备的接口设备都是以文件的形态存在于这个目录当中的。<br>&#x2F;etc</p><p>系统的主要配置文件几乎都是放置在这个目录下，列如账号密码文件，各种服务的启始党等。<br>&#x2F;home</p><p>这是系统默认的用户家目录<br>&#x2F;lib</p><p>库文件目录<br>&#x2F;media</p><p>&#x2F;media目录底下放置的是可移除的装置，包括软盘光盘等<br>&#x2F;opt</p><p>给第三方协力软件放置的目录。<br>&#x2F;root</p><p>系统管理员的家目录<br>&#x2F;sbin</p><p>为开机过程所需要的，里面包括了开机，修复，还原系统所需要的指令。<br>&#x2F;srv</p><p>srv可以视为service的缩写，是一些网络服务启动之后，这些服务所需要取用的数据目录。</p><h3 id="三级目录"><a href="#三级目录" class="headerlink" title="三级目录"></a>三级目录</h3><p>&#x2F;usr&#x2F;lib<br>包含各应用软件的函式库、目标文件(object file)，以及不被一般使用者惯用的执行档或脚本(script)。</p><p>&#x2F;usr&#x2F;local<br>系统管理员在本机自行安装自己下载的软件(ldistribution默认提供者)，建议安装到此目录，这样会比较便于管理。</p><p>&#x2F;var&#x2F;lib<br>程序本身执行的过程中，需要使用到的数据文件放置的目录</p><p>&#x2F;var&#x2F;log(重要)<br>登录文件放置的目录,里面比较重要的文件如&#x2F;var&#x2F;log&#x2F;messages,&#x2F;var&#x2F;log&#x2F;wtmp(记录登入者的信息)等。</p><p>&#x2F;etc&#x2F;init.d&#x2F;<br>所有服务的预设启动 script 都是放在这里的</p><p>&#x2F;etc&#x2F;passwd</p><h2 id="php反序列化"><a href="#php反序列化" class="headerlink" title="php反序列化"></a>php反序列化</h2><p>这个博客写的还不错<a href="https://blog.csdn.net/Hardworking666/article/details/122373938">https://blog.csdn.net/Hardworking666/article/details/122373938</a><br>再推荐一下这个视频里类和对象讲的很清楚(当复习一遍了)<a href="https://www.bilibili.com/video/BV1TH4y1U7tJ?p=5&amp;vd_source=aa13d69224a955c223f4998b491b80fb">https://www.bilibili.com/video/BV1TH4y1U7tJ?p=5&amp;vd_source=aa13d69224a955c223f4998b491b80fb</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 周记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 标签2 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>序言</title>
       <link href="/2023/08/25/2023-8-18-%E5%BA%8F%E8%A8%80/"/>
       <url>/2023/08/25/2023-8-18-%E5%BA%8F%E8%A8%80/</url>
@@ -29,11 +54,11 @@
     
     
     <entry>
-      <title>第三篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第六篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
-        <content type="html"><![CDATA[<h2 id="第三篇文章"><a href="#第三篇文章" class="headerlink" title="第三篇文章"></a>第三篇文章</h2>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
       
@@ -42,9 +67,9 @@
     
     
     <entry>
-      <title>第六篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E5%85%AD%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第七篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%83%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%83%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -81,32 +106,13 @@
     
     
     <entry>
-      <title>第七篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%83%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%83%E7%AF%87%E6%96%87%E7%AB%A0/</url>
+      <title>第三篇文章</title>
+      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%B8%89%E7%AF%87%E6%96%87%E7%AB%A0/</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>第二篇文章</title>
-      <link href="/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-      <url>/2023/08/18/2023-8-18-%E7%AC%AC%E4%BA%8C%E7%AF%87%E6%96%87%E7%AB%A0/</url>
-      
-        <content type="html"><![CDATA[<h2 id="第二篇文章"><a href="#第二篇文章" class="headerlink" title="第二篇文章"></a>第二篇文章</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="第三篇文章"><a href="#第三篇文章" class="headerlink" title="第三篇文章"></a>第三篇文章</h2>]]></content>
       
       
-      
-        <tags>
-            
-            <tag> 标签2 </tag>
-            
-        </tags>
       
     </entry>
     
@@ -117,7 +123,7 @@
       <link href="/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/"/>
       <url>/2023/08/18/NewStar-CTF-2023-8-18-NewStar-CTF-web1/</url>
       
-        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://s2.loli.net/2023/10/01/oXic4WZ8fhR1Q7N.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://s2.loli.net/2023/10/01/yuxcONY3pQviMIZ.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://s2.loli.net/2023/10/01/q3aXopFiYd1vLyn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/BysdUGORo8APwI9.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://s2.loli.net/2023/10/01/ZNRz39BTIXCEoik.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://s2.loli.net/2023/10/01/ol5xHiSb1XVwstn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/Pz6LXqfugHVcWmS.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://s2.loli.net/2023/10/01/OpfelavXB5r1Yzn.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://s2.loli.net/2023/10/01/7ilReQJprIZy5f6.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://s2.loli.net/2023/10/01/ueyiL9S78NkUXoR.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://s2.loli.net/2023/10/01/UCYgaBGstxfE2Ah.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://s2.loli.net/2023/10/01/ITj5oaCKFJg3crf.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://s2.loli.net/2023/10/01/Babp5ygEOMi6UPq.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://s2.loli.net/2023/10/01/XO6Yu5DkE8cRGj1.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://s2.loli.net/2023/10/01/3Xfe6si98MaEhov.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://s2.loli.net/2023/10/01/gxBGPLs3EuvOAUy.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://s2.loli.net/2023/10/01/vl8CdaHPknuz5gt.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://s2.loli.net/2023/10/01/p9RZ3f8aeEJqH15.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://s2.loli.net/2023/10/01/xuUStgeFZ3NQwO7.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://s2.loli.net/2023/10/01/gPBUu2vTrxQ8RoG.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://s2.loli.net/2023/10/01/ZvuChPbkrydGEs5.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://s2.loli.net/2023/10/01/BskA2rYRNiSVq3j.png" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://s2.loli.net/2023/10/01/lKCOuchso8JQIbY.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://s2.loli.net/2023/10/01/eFNwvEpmSZ2WcTf.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://s2.loli.net/2023/10/01/rdVfzQHpY5Ui8gE.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://s2.loli.net/2023/10/01/bPcDzuXOjKh1Yn2.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://s2.loli.net/2023/10/01/QTWLrlh1FBG6JxK.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssit漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://s2.loli.net/2023/10/01/worm4qKu5RAx7JD.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://s2.loli.net/2023/10/01/dAv3YqSWOTVsnZ8.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://s2.loli.net/2023/10/01/VindBhLTReYN2P9.png" alt="1"><br>好也过了<br><img src="https://s2.loli.net/2023/10/01/MhKFgRYa8Eu5jxQ.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://s2.loli.net/2023/10/01/OPqmvW4wUrHanlT.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://s2.loli.net/2023/10/01/5DFvHbstpLX1d3V.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那又得是传数组,利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://s2.loli.net/2023/10/01/C6L85GZiDcfOEAR.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="https://s2.loli.net/2023/10/01/zaP3JMmIbsOgQXk.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://s2.loli.net/2023/10/01/9hG3SpflDjHks4E.png" alt="1"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="NewStar-CTF-web-第一周writeup"><a href="#NewStar-CTF-web-第一周writeup" class="headerlink" title="NewStar CTF web 第一周writeup"></a>NewStar CTF web 第一周writeup</h1><h2 id="泄露的秘密"><a href="#泄露的秘密" class="headerlink" title="泄露的秘密"></a>泄露的秘密</h2><p><img src="https://s2.loli.net/2023/10/01/oXic4WZ8fhR1Q7N.png" alt="1"><br>根据题目和网页的提示,认定这是一道藏有敏感文件的题,第一时间我想到的是爆破路径,但是很不巧,我没安dirseach,自己的路径扫描工具还出了问题..<br>我就打算尝试几个可能藏有敏感文件的路径,发现&#x2F;robots.txt里有一部分flag<br><img src="https://s2.loli.net/2023/10/01/yuxcONY3pQviMIZ.png" alt="1"><br>好,但是只出来了这一半,果不其然的卡关了,但是在刚才的尝试中发现了一个&#x2F;index.php路径有点特殊,据我发现网页是存在这个路径的但是显示不出来这个文件,所以通过网上的搜索,终于发现一种能下出敏感文件的路径&#x2F;<a href="http://www.zip/">www.zip</a><br><img src="https://s2.loli.net/2023/10/01/q3aXopFiYd1vLyn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/BysdUGORo8APwI9.png" alt="1"><br>好好好还真藏在这里了,这下另一半flag也找到了,拼接一下提交这样就成功拿下第一道了</p><h2 id="Begin-of-Upload"><a href="#Begin-of-Upload" class="headerlink" title="Begin of Upload"></a>Begin of Upload</h2><p><img src="https://s2.loli.net/2023/10/01/ZNRz39BTIXCEoik.png" alt="1"><br>经典文件上传,那么先尝试一句话木马直接上传<br><img src="https://s2.loli.net/2023/10/01/ol5xHiSb1XVwstn.png" alt="1"><br><img src="https://s2.loli.net/2023/10/01/Pz6LXqfugHVcWmS.png" alt="1"><br>上传后发现网页过滤格式,那么我采取改成合法后缀上传后抓包再改包的这种方法植入后门<br>那么接下来改好后缀上传,直接用burpsuite抓取这个数据包<br><img src="https://s2.loli.net/2023/10/01/OpfelavXB5r1Yzn.png" alt="1"><br>此时上传就成功了,也从burpsuite内抓到了数据包<br><img src="https://s2.loli.net/2023/10/01/7ilReQJprIZy5f6.png" alt="1"><br>那么这时将这里的后缀改成php,再发回给服务器,这个木马就生效了<br><img src="https://s2.loli.net/2023/10/01/ueyiL9S78NkUXoR.png" alt="1"><br>好,这样就可以用webshell操作了,这里我用中国蚁剑操作一下<br><img src="https://s2.loli.net/2023/10/01/UCYgaBGstxfE2Ah.png" alt="1"><br>ok确认植入成功了,我们的这个木马文件也能看到在里面了,这样就可以去翻看这个服务器的各种文件了,在这之间应该就能找到本题藏有flag的文件<br><img src="https://s2.loli.net/2023/10/01/ITj5oaCKFJg3crf.png" alt="1"><br>找到了,打开这个文件看看就是答案了<br><img src="https://s2.loli.net/2023/10/01/Babp5ygEOMi6UPq.png" alt="1"></p><h2 id="Begin-of-HTTP"><a href="#Begin-of-HTTP" class="headerlink" title="Begin of HTTP"></a>Begin of HTTP</h2><p><img src="https://s2.loli.net/2023/10/01/XO6Yu5DkE8cRGj1.png" alt="1"><br>映入眼帘的就是传get参数,估计后面也会有post请求,那么我直接用hackbar来做了<br><img src="https://s2.loli.net/2023/10/01/3Xfe6si98MaEhov.png" alt="1"><br>果然下一步就是传post参数,但是需要找一找secret的值<br><img src="https://s2.loli.net/2023/10/01/gxBGPLs3EuvOAUy.png" alt="1"><br>从网页源码翻翻就找到了,base64解个码传上去<br><img src="https://s2.loli.net/2023/10/01/vl8CdaHPknuz5gt.png" alt="1"><br>ok传好值了,接下来看看请求头部分有没有信息吧<br><img src="https://s2.loli.net/2023/10/01/p9RZ3f8aeEJqH15.png" alt="1"><br>发现cookie部分有题目要求的验证内容,将其改成ctfer<br><img src="https://s2.loli.net/2023/10/01/xuUStgeFZ3NQwO7.png" alt="1"><br>成功,又是一关,依旧是改请求头部分,这次因为是浏览器指定要求,那么就修改User Agent部分为题目要求<br><img src="https://s2.loli.net/2023/10/01/gPBUu2vTrxQ8RoG.png" alt="1"><br>好了又是经典改请求头,这次是修改referer部分<br><img src="https://s2.loli.net/2023/10/01/ZvuChPbkrydGEs5.png" alt="1"><br>终于到最后了,也是经典套路本地访问,经过多次尝试试出了是哪条语句生效<br><img src="https://s2.loli.net/2023/10/01/BskA2rYRNiSVq3j.png" alt="1"><br>为了方便一次性尝试我用的burpsuite抓包一次性都写进去发包,但是坐大牢了,整了半天发现最后是X-real-IP这条语句才能生效,不过最后也是成功了<br>那么这次就用hackbar演示一下结果吧<br><img src="https://s2.loli.net/2023/10/01/lKCOuchso8JQIbY.png" alt="1"><br>PS: 最后一部分通过和我亲爱的蓝学长讨论,得知到更简单的伪造ip方法在此致谢此大佬</p><h2 id="ErrorFlask"><a href="#ErrorFlask" class="headerlink" title="ErrorFlask"></a>ErrorFlask</h2><p><img src="https://s2.loli.net/2023/10/01/eFNwvEpmSZ2WcTf.png" alt="1"><br>开局看到这个提示一时间想到传参,但不清楚Flask是什么东西,通过查阅得知Flask是一个网页的框架,也是可以接收正常请求的<br>我尝试着传了这两个指定的参数<br><img src="https://s2.loli.net/2023/10/01/rdVfzQHpY5Ui8gE.png" alt="1"><br>发现出现这样的提示,得知flag就在源码中,但Flask框架的源码目前不清楚怎么查看,我又进行了几次尝试<br>此时发现如果传入的不是数字就会有这样的页面<br><img src="https://s2.loli.net/2023/10/01/bPcDzuXOjKh1Yn2.png" alt="1"><br>当时对这个界面确实匪夷所思,一直想着是不是还是对参数的改变才能得出答案,但是仔细一想这题的主要内容是Flask,经过长时间的周转我打算仔细看看这个显示出来的界面<br>结果细看发现这不就是源码吗..通过翻找就找到了flag<br><img src="https://s2.loli.net/2023/10/01/QTWLrlh1FBG6JxK.png" alt="1"><br>(这题确实没想到这么简单,之前和贺同学交流得知如果是ssti漏洞就会难不少)</p><h2 id="Begin-of-PHP"><a href="#Begin-of-PHP" class="headerlink" title="Begin of PHP"></a>Begin of PHP</h2><p><img src="https://s2.loli.net/2023/10/01/worm4qKu5RAx7JD.png" alt="1"><br>翻翻这道题,发现是有五层保护,需要一层一层绕过<br>那么先来到第一层,要求key1和key2不同但md5加密后相同,那就根据md5加密的机制传两个不一样的数组<br><img src="https://s2.loli.net/2023/10/01/dAv3YqSWOTVsnZ8.png" alt="1"><br>如图,第一层就过了<br>第二层是传个post参数经过md5加密和sha1加密后强相等才能通过,那就再传个数组呗<br><img src="https://s2.loli.net/2023/10/01/VindBhLTReYN2P9.png" alt="1"><br>好也过了<br><img src="https://s2.loli.net/2023/10/01/MhKFgRYa8Eu5jxQ.png" alt="1"><br>到第三层了,发现是一个字符比较,但strcmp()函数无法比较数组,所以我继续传个数组<br><img src="https://s2.loli.net/2023/10/01/OPqmvW4wUrHanlT.png" alt="1"><br>果然过了,接下来看看第四层吧<br><img src="https://s2.loli.net/2023/10/01/5DFvHbstpLX1d3V.png" alt="1"><br>第四层发现不能传数字并且值要大于2023,那可以利用php中数组类型一定比整数类型大的特点,我们随便传上一个数组<br><img src="https://s2.loli.net/2023/10/01/C6L85GZiDcfOEAR.png" alt="1"><br>第四层就过了,看看第五层是什么成分<br><img src="https://s2.loli.net/2023/10/01/zaP3JMmIbsOgQXk.png" alt="1"><br>仔细看看,发现这个flag5需要自己传,而且根据前两句函数发现传的post数组中的值和键会被取出当成单独的值,并将这些值和其他post传的参赋给var,之后根据这个正则表达式过滤一切字母和数字<br>那么我们之前传的post参数key3数组里就不能有数字,且之后传的flag5里也不能有数字<br>这样我们可以给key3数组赋任意的符号来绕过这个正则并且第二层的通过也不会失效(因为依旧是数组),而flag5可以考虑通过构造flag5&#x3D;’ ‘这样的payload来绕过正则,且这样的表示也为真,这样if语句执行,flag就展现在眼前了<br><img src="https://s2.loli.net/2023/10/01/9hG3SpflDjHks4E.png" alt="1"></p>]]></content>
       
       
       <categories>
@@ -141,17 +147,6 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -163,9 +158,9 @@
     
     
     <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
+      <title>友链</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -174,9 +169,31 @@
     
     
     <entry>
-      <title>友链</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
+      <title></title>
+      <link href="/css/custom.css"/>
+      <url>/css/custom.css</url>
+      
+        <content type="html"><![CDATA[:root {  --trans-light: rgba(255, 255, 255, 0.88);  --trans-dark: rgba(25, 25, 25, 0.88);  --border-style: 1px solid rgb(169, 169, 169);  --backdrop-filter: blur(5px) saturate(150%);}/* 页脚与头图透明 */#footer {    background: transparent !important;  }  #page-header {    background: transparent !important;  }    /* 白天模式遮罩透明 */  #footer::before {    background: transparent !important;  }  #page-header::before {    background: transparent !important;  }    /* 夜间模式遮罩透明 */  [data-theme="dark"] #footer::before {    background: transparent !important;  }  [data-theme="dark"] #page-header::before {    background: transparent !important;  }  /* 小冰分类分类磁铁黑夜模式适配 */  /* 一般状态 */  [data-theme="dark"] .magnet_link_context {      background: #1e1e1e;      color: antiquewhite;  }  /* 鼠标悬浮状态 */  [data-theme="dark"] .magnet_link_context:hover {      background: #3ecdf1;      color: #f2f2f2;  }  /* 翻页按钮居中 */  #pagination {    width: 100%;    margin: auto;   }     /* 日间模式不生效 */     [data-theme="light"] #site-name,     [data-theme="light"] #site-title,     [data-theme="light"] #site-subtitle,     [data-theme="light"] #post-info {       animation: none;     }       /* 夜间模式生效 */     [data-theme="dark"] #site-name,     [data-theme="dark"] #site-title {       animation: light_15px 10s linear infinite;     }       [data-theme="dark"] #site-subtitle {       animation: light_10px 10s linear infinite;     }       [data-theme="dark"] #post-info {       animation: light_5px 10s linear infinite;     }       /* 关键帧描述 */     @keyframes light_15px {       0% {         text-shadow: #5636ed 0 0 15px;       }         12.5% {         text-shadow: #11ee5e 0 0 15px;       }         25% {         text-shadow: #f14747 0 0 15px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 15px;       }         50% {         text-shadow: #b347f1 0 0 15px;       }         62.5% {         text-shadow: #002afa 0 0 15px;       }         75% {         text-shadow: #ed709b 0 0 15px;       }         87.5% {         text-shadow: #39c5bb 0 0 15px;       }         100% {         text-shadow: #5636ed 0 0 15px;       }     }       @keyframes light_10px {       0% {         text-shadow: #5636ed 0 0 10px;       }         12.5% {         text-shadow: #11ee5e 0 0 10px;       }         25% {         text-shadow: #f14747 0 0 10px;       }         37.5% {         text-shadow: #f1a247 0 0 10px;       }         50% {         text-shadow: #f1ee47 0 0 10px;       }         50% {         text-shadow: #b347f1 0 0 10px;       }         62.5% {         text-shadow: #002afa 0 0 10px;       }         75% {         text-shadow: #ed709b 0 0 10px;       }         87.5% {         text-shadow: #39c5bb 0 0 10px;       }         100% {         text-shadow: #5636ed 0 0 10px;       }     }       @keyframes light_5px {       0% {         text-shadow: #5636ed 0 0 5px;       }         12.5% {         text-shadow: #11ee5e 0 0 5px;       }         25% {         text-shadow: #f14747 0 0 5px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 5px;       }         50% {         text-shadow: #b347f1 0 0 5px;       }         62.5% {         text-shadow: #002afa 0 0 5px;       }         75% {         text-shadow: #ed709b 0 0 5px;       }         87.5% {         text-shadow: #39c5bb 0 0 5px;       }         100% {         text-shadow: #5636ed 0 0 5px;       }     }         /* 侧边栏个人信息卡片动态渐变色 */         #aside-content>.card-widget.card-info {           background: linear-gradient(-45deg,               #e8d8b9,               #eccec5,               #a3e9eb,               #bdbdf0,               #eec1ea);           box-shadow: 0 0 5px rgb(66, 68, 68);           position: relative;           background-size: 400% 400%;           -webkit-animation: Gradient 10s ease infinite;           -moz-animation: Gradient 10s ease infinite;           animation: Gradient 10s ease infinite !important;         }             @-webkit-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @-moz-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             /* 黑夜模式适配 */         [data-theme="dark"] #aside-content>.card-widget.card-info {           background: #191919ee;         }             /* 个人信息Follow me按钮 */         #aside-content>.card-widget.card-info>#card-info-btn {           background-color: #3eb8be;           border-radius: 8px;         }/* 首页文章卡片 */#recent-posts>.recent-post-item {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 25px;  border: var(--border-style);}/* 首页侧栏卡片 */#aside-content .card-widget {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 18px;  border: var(--border-style);}/* 文章页、归档页、普通页面 */div#post,div#page,div#archive {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border: var(--border-style);  border-radius: 20px;}/* 导航栏 */#page-header.nav-fixed #nav {  background: rgba(255, 255, 255, 0.75);  backdrop-filter: var(--backdrop-filter);}[data-theme="dark"] #page-header.nav-fixed #nav {  background: rgba(0, 0, 0, 0.7) !important;}/* 夜间模式遮罩 */[data-theme="dark"] #recent-posts>.recent-post-item,[data-theme="dark"] #aside-content .card-widget,[data-theme="dark"] div#post,[data-theme="dark"] div#archive,[data-theme="dark"] div#page {  background: var(--trans-dark);}/* 夜间模式页脚页头遮罩透明 */[data-theme="dark"] #footer::before {  background: transparent !important;}[data-theme="dark"] #page-header::before {  background: transparent !important;}/* 阅读模式 */.read-mode #aside-content .card-widget {  background: rgba(158, 204, 171, 0.5) !important;}.read-mode div#post {  background: rgba(158, 204, 171, 0.5) !important;}/* 夜间模式下的阅读模式 */[data-theme="dark"] .read-mode #aside-content .card-widget {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}[data-theme="dark"] .read-mode div#post {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -197,10 +214,10 @@
     
     <entry>
       <title></title>
-      <link href="/css/custom.css"/>
-      <url>/css/custom.css</url>
+      <link href="/js/runtime.js"/>
+      <url>/js/runtime.js</url>
       
-        <content type="html"><![CDATA[:root {  --trans-light: rgba(255, 255, 255, 0.88);  --trans-dark: rgba(25, 25, 25, 0.88);  --border-style: 1px solid rgb(169, 169, 169);  --backdrop-filter: blur(5px) saturate(150%);}/* 页脚与头图透明 */#footer {    background: transparent !important;  }  #page-header {    background: transparent !important;  }    /* 白天模式遮罩透明 */  #footer::before {    background: transparent !important;  }  #page-header::before {    background: transparent !important;  }    /* 夜间模式遮罩透明 */  [data-theme="dark"] #footer::before {    background: transparent !important;  }  [data-theme="dark"] #page-header::before {    background: transparent !important;  }  /* 小冰分类分类磁铁黑夜模式适配 */  /* 一般状态 */  [data-theme="dark"] .magnet_link_context {      background: #1e1e1e;      color: antiquewhite;  }  /* 鼠标悬浮状态 */  [data-theme="dark"] .magnet_link_context:hover {      background: #3ecdf1;      color: #f2f2f2;  }  /* 翻页按钮居中 */  #pagination {    width: 100%;    margin: auto;   }     /* 日间模式不生效 */     [data-theme="light"] #site-name,     [data-theme="light"] #site-title,     [data-theme="light"] #site-subtitle,     [data-theme="light"] #post-info {       animation: none;     }       /* 夜间模式生效 */     [data-theme="dark"] #site-name,     [data-theme="dark"] #site-title {       animation: light_15px 10s linear infinite;     }       [data-theme="dark"] #site-subtitle {       animation: light_10px 10s linear infinite;     }       [data-theme="dark"] #post-info {       animation: light_5px 10s linear infinite;     }       /* 关键帧描述 */     @keyframes light_15px {       0% {         text-shadow: #5636ed 0 0 15px;       }         12.5% {         text-shadow: #11ee5e 0 0 15px;       }         25% {         text-shadow: #f14747 0 0 15px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 15px;       }         50% {         text-shadow: #b347f1 0 0 15px;       }         62.5% {         text-shadow: #002afa 0 0 15px;       }         75% {         text-shadow: #ed709b 0 0 15px;       }         87.5% {         text-shadow: #39c5bb 0 0 15px;       }         100% {         text-shadow: #5636ed 0 0 15px;       }     }       @keyframes light_10px {       0% {         text-shadow: #5636ed 0 0 10px;       }         12.5% {         text-shadow: #11ee5e 0 0 10px;       }         25% {         text-shadow: #f14747 0 0 10px;       }         37.5% {         text-shadow: #f1a247 0 0 10px;       }         50% {         text-shadow: #f1ee47 0 0 10px;       }         50% {         text-shadow: #b347f1 0 0 10px;       }         62.5% {         text-shadow: #002afa 0 0 10px;       }         75% {         text-shadow: #ed709b 0 0 10px;       }         87.5% {         text-shadow: #39c5bb 0 0 10px;       }         100% {         text-shadow: #5636ed 0 0 10px;       }     }       @keyframes light_5px {       0% {         text-shadow: #5636ed 0 0 5px;       }         12.5% {         text-shadow: #11ee5e 0 0 5px;       }         25% {         text-shadow: #f14747 0 0 5px;       }         37.5% {         text-shadow: #f1a247 0 0 15px;       }         50% {         text-shadow: #f1ee47 0 0 5px;       }         50% {         text-shadow: #b347f1 0 0 5px;       }         62.5% {         text-shadow: #002afa 0 0 5px;       }         75% {         text-shadow: #ed709b 0 0 5px;       }         87.5% {         text-shadow: #39c5bb 0 0 5px;       }         100% {         text-shadow: #5636ed 0 0 5px;       }     }         /* 侧边栏个人信息卡片动态渐变色 */         #aside-content>.card-widget.card-info {           background: linear-gradient(-45deg,               #e8d8b9,               #eccec5,               #a3e9eb,               #bdbdf0,               #eec1ea);           box-shadow: 0 0 5px rgb(66, 68, 68);           position: relative;           background-size: 400% 400%;           -webkit-animation: Gradient 10s ease infinite;           -moz-animation: Gradient 10s ease infinite;           animation: Gradient 10s ease infinite !important;         }             @-webkit-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @-moz-keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             @keyframes Gradient {           0% {             background-position: 0% 50%;           }               50% {             background-position: 100% 50%;           }               100% {             background-position: 0% 50%;           }         }             /* 黑夜模式适配 */         [data-theme="dark"] #aside-content>.card-widget.card-info {           background: #191919ee;         }             /* 个人信息Follow me按钮 */         #aside-content>.card-widget.card-info>#card-info-btn {           background-color: #3eb8be;           border-radius: 8px;         }/* 首页文章卡片 */#recent-posts>.recent-post-item {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 25px;  border: var(--border-style);}/* 首页侧栏卡片 */#aside-content .card-widget {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border-radius: 18px;  border: var(--border-style);}/* 文章页、归档页、普通页面 */div#post,div#page,div#archive {  background: var(--trans-light);  backdrop-filter: var(--backdrop-filter);  border: var(--border-style);  border-radius: 20px;}/* 导航栏 */#page-header.nav-fixed #nav {  background: rgba(255, 255, 255, 0.75);  backdrop-filter: var(--backdrop-filter);}[data-theme="dark"] #page-header.nav-fixed #nav {  background: rgba(0, 0, 0, 0.7) !important;}/* 夜间模式遮罩 */[data-theme="dark"] #recent-posts>.recent-post-item,[data-theme="dark"] #aside-content .card-widget,[data-theme="dark"] div#post,[data-theme="dark"] div#archive,[data-theme="dark"] div#page {  background: var(--trans-dark);}/* 夜间模式页脚页头遮罩透明 */[data-theme="dark"] #footer::before {  background: transparent !important;}[data-theme="dark"] #page-header::before {  background: transparent !important;}/* 阅读模式 */.read-mode #aside-content .card-widget {  background: rgba(158, 204, 171, 0.5) !important;}.read-mode div#post {  background: rgba(158, 204, 171, 0.5) !important;}/* 夜间模式下的阅读模式 */[data-theme="dark"] .read-mode #aside-content .card-widget {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}[data-theme="dark"] .read-mode div#post {  background: rgba(25, 25, 25, 0.9) !important;  color: #ffffff;}]]></content>
+        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
       
     </entry>
     
@@ -223,17 +240,6 @@
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title></title>
-      <link href="/js/runtime.js"/>
-      <url>/js/runtime.js</url>
-      
-        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
       
     </entry>
     
