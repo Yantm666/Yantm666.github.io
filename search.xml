@@ -83,7 +83,7 @@
       <link href="/2023/10/14/%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0-2023-10-14-%E7%AC%94%E8%AE%B01/"/>
       <url>/2023/10/14/%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0-2023-10-14-%E7%AC%94%E8%AE%B01/</url>
       
-        <content type="html"><![CDATA[<h2 id="笔记1"><a href="#笔记1" class="headerlink" title="笔记1"></a>笔记1</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>不同的数据类型只区别于占据的内存空间,而不同的占据空间会影响在计算机内开辟的内存区域,作为计算机,通过读取不同内存部分的地址来使用数据</p><p>而数据类型,就如同服务员来敲开不同门牌号(地址)的房间(内存)来拿取数据,不同的数据类型也就对应着不同数量的服务员</p><p>对于不同的数据传输,计算机和计算机,计算机和人之间如何”交流”,是通过人为规定的编码与数据对应的表来进行数据传输,从最早的ASCII表到如今的utf-8编码,一切存在世界上的文字与字符甚至表情、语言或是图片,都有对应规定的计算机编码格式,从而转换为二进制使计算机进行存储或传输数据</p><h3 id="计算机网络基础"><a href="#计算机网络基础" class="headerlink" title="计算机网络基础"></a>计算机网络基础</h3><p><img src="https://img-blog.csdnimg.cn/img_convert/9b0e259a058e1e338ab3e50e728a2156.png" alt="1"></p><p>类似于从包装快递到送快递已经拆封的过程</p><p>从上层协议到底层协议后不同区域交流后再进行同样的逆过程</p><h4 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h4><p>ip地址是32位，每个字节8位，实质我们的划分就是简单的哪几个字节是网络标识，哪个是主机标识，a类就是第一个字节作为网络标识，后三个字节是主机表示。它的范围是0.0.0.0<del>127.0.0.0。b类前两个是网络表识别。它的范围是128.0.0.1</del>191.255.0.0。c类前三个是网络标识。它的范围是192.168.0.0~239.255.255.0。同理可得最后d类就是四个字节是网络标识。</p><p>还有一点就是需要注意一点，那就是表示主机地址时，不可以全为0或者全为1。全为0只有在表示对应的网络地址或IP地址不可知的情况下才使用。而全为1的主机地址一般作为广播地址。所以上面abc三类的主机地址上限算的时候都会减2。他们的示意图如下</p><h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>子网掩码是一个32位地址，这是一种与ip地址结合使用的技术。他有两个主要功能。一个是屏蔽ip地址的一部分，以区分网络id和主机id，并指示ip地址实在局域网上还是在远程网络上。第二个功能是将大型ip网络划分为若干个小型子网</p><p>子网的使用其实是为了减少IP的浪费，我们创建了许多网络，但有很多ip地址并没有用完，因此必须划分子网，以提高网络应用程序的效率。</p><p>在实际使用中，子网掩码是不能单独存在的，他必须结合ip地址一起使用。简单说的话，他就是用来分割子网和区分哪些ip是同一个网段的，哪些不是</p><p>比如ip地址：192.168.1.1 子网掩码：255.255.255.0</p><h3 id="计算思维"><a href="#计算思维" class="headerlink" title="计算思维"></a>计算思维</h3><p>问题分解与抽象化：计算思维鼓励将复杂问题分解成更小的、可管理的部分，同时抽象问题的关键方面。这有助于更好地理解问题的本质，使问题更容易解决。</p><p>算法设计：计算思维强调开发明确的、可执行的步骤序列，用于解决各种问题。这些步骤被称为算法，它们应该具有清晰的逻辑和正确性，以及高效性。</p><p>数据处理和分析：计算思维包括了处理和分析数据的能力，这包括数据的采集、整理、存储、分析和可视化。数据在许多领域中都是重要的资源。</p><p>模型建立：计算思维通常涉及将数学模型应用于现实世界问题。这些模型可以用来描述和解释现象，然后使用计算机进行模拟和分析。</p><p>计算机科学概念：计算思维需要了解计算机科学的基本概念，如数据结构、算法复杂性、编程语言等。这有助于更好地理解计算机工作的原理。创新和解决问题：计算思维培养了创新和解决问题的能力。它鼓励人们寻找新的方法来解决各种挑战，包括工程、科学研究、商业和社会问题。</p><p>按照计算机规范思维</p><h3 id="思维和心理"><a href="#思维和心理" class="headerlink" title="思维和心理"></a>思维和心理</h3>]]></content>
+        <content type="html"><![CDATA[<h2 id="笔记1"><a href="#笔记1" class="headerlink" title="笔记1"></a>笔记1</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>不同的数据类型只区别于占据的内存空间,而不同的占据空间会影响在计算机内开辟的内存区域,作为计算机,通过读取不同内存部分的地址来使用数据</p><p>而数据类型,就如同服务员来敲开不同门牌号(地址)的房间(内存)来拿取数据,不同的数据类型也就对应着不同数量的服务员</p><p>对于不同的数据传输,计算机和计算机,计算机和人之间如何”交流”,是通过人为规定的编码与数据对应的表来进行数据传输,从最早的ASCII表到如今的utf-8编码,一切存在世界上的文字与字符甚至表情、语言或是图片,都有对应规定的计算机编码格式,从而转换为二进制使计算机进行存储或传输数据</p><h3 id="计算机网络基础"><a href="#计算机网络基础" class="headerlink" title="计算机网络基础"></a>计算机网络基础</h3><p><img src="https://img-blog.csdnimg.cn/img_convert/9b0e259a058e1e338ab3e50e728a2156.png" alt="1"></p><p>类似于从包装快递到送快递已经拆封的过程</p><p>从上层协议到底层协议后不同区域交流后再进行同样的逆过程</p><h4 id="ip地址"><a href="#ip地址" class="headerlink" title="ip地址"></a>ip地址</h4><p>ip地址是32位，每个字节8位，实质我们的划分就是简单的哪几个字节是网络标识，哪个是主机标识，a类就是第一个字节作为网络标识，后三个字节是主机表示。它的范围是0.0.0.0-127.0.0.0。b类前两个是网络表识别。它的范围是128.0.0.1-191.255.0.0。c类前三个是网络标识。它的范围是192.168.0.0-239.255.255.0。同理可得最后d类就是四个字节是网络标识。</p><p>还有一点就是需要注意一点，那就是表示主机地址时，不可以全为0或者全为1。全为0只有在表示对应的网络地址或IP地址不可知的情况下才使用。而全为1的主机地址一般作为广播地址。所以上面abc三类的主机地址上限算的时候都会减2。</p><h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>子网掩码是一个32位地址，这是一种与ip地址结合使用的技术。他有两个主要功能。一个是屏蔽ip地址的一部分，以区分网络id和主机id，并指示ip地址实在局域网上还是在远程网络上。第二个功能是将大型ip网络划分为若干个小型子网</p><p>子网的使用其实是为了减少IP的浪费，我们创建了许多网络，但有很多ip地址并没有用完，因此必须划分子网，以提高网络应用程序的效率。</p><p>在实际使用中，子网掩码是不能单独存在的，他必须结合ip地址一起使用。简单说的话，他就是用来分割子网和区分哪些ip是同一个网段的，哪些不是</p><p>比如ip地址：192.168.1.1 子网掩码：255.255.255.0</p><h3 id="计算思维"><a href="#计算思维" class="headerlink" title="计算思维"></a>计算思维</h3><p>问题分解与抽象化：计算思维鼓励将复杂问题分解成更小的、可管理的部分，同时抽象问题的关键方面。这有助于更好地理解问题的本质，使问题更容易解决。</p><p>算法设计：计算思维强调开发明确的、可执行的步骤序列，用于解决各种问题。这些步骤被称为算法，它们应该具有清晰的逻辑和正确性，以及高效性。</p><p>数据处理和分析：计算思维包括了处理和分析数据的能力，这包括数据的采集、整理、存储、分析和可视化。数据在许多领域中都是重要的资源。</p><p>模型建立：计算思维通常涉及将数学模型应用于现实世界问题。这些模型可以用来描述和解释现象，然后使用计算机进行模拟和分析。</p><p>计算机科学概念：计算思维需要了解计算机科学的基本概念，如数据结构、算法复杂性、编程语言等。这有助于更好地理解计算机工作的原理。创新和解决问题：计算思维培养了创新和解决问题的能力。它鼓励人们寻找新的方法来解决各种挑战，包括工程、科学研究、商业和社会问题。</p><p>按照计算机规范思维</p><h3 id="思维和心理"><a href="#思维和心理" class="headerlink" title="思维和心理"></a>思维和心理</h3>]]></content>
       
       
       <categories>
@@ -195,11 +195,11 @@
     
     
     <entry>
-      <title></title>
-      <link href="/js/runtime.js"/>
-      <url>/js/runtime.js</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -217,6 +217,17 @@
     
     
     <entry>
+      <title></title>
+      <link href="/js/lib_runtime.js"/>
+      <url>/js/lib_runtime.js</url>
+      
+        <content type="html"><![CDATA[setInterval(() => {  let create_time = Math.round(new Date('2023-8-19 13:34:00').getTime() / 1000); //在此行修改建站时间  let timestamp = Math.round((new Date().getTime()) / 1000);  let second = timestamp - create_time;  let time = new Array(0, 0, 0, 0, 0);  var nol = function(h){    return h>9?h:'0'+h;  }  if (second >= 365 * 24 * 3600) {    time[0] = parseInt(second / (365 * 24 * 3600));    second %= 365 * 24 * 3600;  }  if (second >= 24 * 3600) {    time[1] = parseInt(second / (24 * 3600));    second %= 24 * 3600;  }  if (second >= 3600) {    time[2] = nol(parseInt(second / 3600));    second %= 3600;  }  if (second >= 60) {    time[3] = nol(parseInt(second / 60));    second %= 60;  }  if (second > 0) {    time[4] = nol(second);  }  if ((Number(time[2])<22) && (Number(time[2])>7)){    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-营业中-6adea8?style=social&logo=cakephp' title='距离第十八层还有不少距离哦'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  else{    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-打烊了-6adea8?style=social&logo=coffeescript' title='这里的人也是要休息的QWQ'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  document.getElementById("workboard").innerHTML = currentTimeHtml;}, 1000);]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -228,22 +239,11 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title></title>
-      <link href="/js/lib_runtime.js"/>
-      <url>/js/lib_runtime.js</url>
+      <link href="/js/runtime.js"/>
+      <url>/js/runtime.js</url>
       
-        <content type="html"><![CDATA[setInterval(() => {  let create_time = Math.round(new Date('2023-8-19 13:34:00').getTime() / 1000); //在此行修改建站时间  let timestamp = Math.round((new Date().getTime()) / 1000);  let second = timestamp - create_time;  let time = new Array(0, 0, 0, 0, 0);  var nol = function(h){    return h>9?h:'0'+h;  }  if (second >= 365 * 24 * 3600) {    time[0] = parseInt(second / (365 * 24 * 3600));    second %= 365 * 24 * 3600;  }  if (second >= 24 * 3600) {    time[1] = parseInt(second / (24 * 3600));    second %= 24 * 3600;  }  if (second >= 3600) {    time[2] = nol(parseInt(second / 3600));    second %= 3600;  }  if (second >= 60) {    time[3] = nol(parseInt(second / 60));    second %= 60;  }  if (second > 0) {    time[4] = nol(second);  }  if ((Number(time[2])<22) && (Number(time[2])>7)){    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-营业中-6adea8?style=social&logo=cakephp' title='距离第十八层还有不少距离哦'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  else{    currentTimeHtml ="<img class='boardsign' src='https://img.shields.io/badge/阎王殿-打烊了-6adea8?style=social&logo=coffeescript' title='这里的人也是要休息的QWQ'><div id='runtime'>" + time[0] + ' YEAR ' + time[1] + ' DAYS ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + '</div>';  }  document.getElementById("workboard").innerHTML = currentTimeHtml;}, 1000);]]></content>
+        <content type="html"><![CDATA[var now = new Date; function createtime() { now.setTime(now.getTime() + 1e3); var e = new Date("08/01/2022 00:00:00"), t = Math.trunc(234e8 + (now - e) / 1e3 * 17), a = (t / 1496e5).toFixed(6), o = new Date("08/09/2022 00:00:00"), n = (now - o) / 1e3 / 60 / 60 / 24, r = Math.floor(n), i = (now - o) / 1e3 / 60 / 60 - 24 * r, s = Math.floor(i); 1 == String(s).length && (s = "0" + s); var d = (now - o) / 1e3 / 60 - 1440 * r - 60 * s, l = Math.floor(d); 1 == String(l).length && (l = "0" + l); var g = (now - o) / 1e3 - 86400 * r - 3600 * s - 60 * l, b = Math.round(g); 1 == String(b).length && (b = "0" + b); let c = ""; c = s < 18 && s >= 9 ? `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>` : `<img class='boardsign' src='https://sourcebucket.s3.ladydaily.com/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${r} 天 ${s} 小时 ${l} 分 ${b} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${t} 千米，约为 ${a} 个天文单位 🚀</div>`, document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c) } setInterval((() => { createtime() }), 1e3);]]></content>
       
     </entry>
     
